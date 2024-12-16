@@ -1,0 +1,23 @@
+version: '3.8'
+services:
+  webapp:
+    build: .
+    ports:
+      - '3000:3000'
+    depends_on:
+      - mongodb
+    volumes:
+      - ./storage:/app/storage
+    environment:
+      - MONGO_URI=mongodb://mongodb:27017/webapp
+
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb_container
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongo_data:/data/db
+
+volumes:
+  mongo_data:
